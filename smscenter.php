@@ -38,6 +38,13 @@
 		return fread( $fp, 1024 );
 	}
 	// Example of use sendSMS
-	$response = sendSMS( $key, $to, $message, $originator , $type);
-   echo $response;
+    $response = sendSMS( $key, $to, $message, $originator , $type);
+  	echo $response;
+
+
+
+
+
+
+
 ?>
