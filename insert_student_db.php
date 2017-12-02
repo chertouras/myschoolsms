@@ -17,6 +17,56 @@ include 'parameters.php';
 $mysqli = new mysqli($servername, $username, $password , $dbname);
 $mysqli->set_charset('utf8');
 
+/**
+ * 
+ * 
+ * check if teachers table exist / if not create it
+ * 
+ */
+
+$table='students';
+if ($result = $mysqli->query("SHOW TABLES LIKE '".$table."'")) {
+    if($result->num_rows == 1) {
+        echo "<br>Ο πίνακας <b>students</b> υπάρχει ήδη και δεν αλλοιώθηκε.";
+      
+    }
+
+     else 
+     {
+
+$sql = "CREATE TABLE IF NOT EXISTS students (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+StudentId VARCHAR(10) NOT NULL UNIQUE,
+RegistrationNumber VARCHAR(10)  NOT NULL,
+FirstName  VARCHAR(70) ,
+LastName VARCHAR(70) ,
+MotherFirstName VARCHAR(70),
+FatherFirstName VARCHAR(70) ,
+BirthDate  DATE ,
+Telephone1 VARCHAR(20) ,
+LevelName VARCHAR(20) 
+) CHARACTER SET utf8mb4  COLLATE utf8mb4_unicode_ci";
+if ($mysqli->query($sql) === TRUE) {
+    echo "<br/>";
+    echo "<b>Ο πίνακας students δημιουργήθηκε επιτυχώς</b>";
+   
+} else {
+    echo "<br/>";
+    echo "Σφάλμα κατά την δημιουργία του πίνακα " . $mysqli->error;
+    echo "Πιθανά ο πίνακας υπάρχει ήδη. ";
+    echo "<br/>";
+}
+     }
+    }
+
+
+    else {
+        echo "<br> Σφάλμα κατά τον έλεγχο ύπαρξης/δημιουργίας του πίνακα " . $mysqli->error;
+    
+    
+    }
+
+
 
 /* check connection */
 if (mysqli_connect_errno()) {
