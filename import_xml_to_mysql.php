@@ -170,7 +170,7 @@ $insert_row = $mysqli->query("INSERT INTO students (StudentId, RegistrationNumbe
 }  
     
     if ($errors==0  )
- {echo("H εισαγωγή του συνόλου των εγγραφών έγινε επιτυχώς");
+ {echo("<br> H εισαγωγή του συνόλου των εγγραφών έγινε επιτυχώς");
 }
 
 else 
