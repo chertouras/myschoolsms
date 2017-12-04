@@ -91,6 +91,11 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
         .new-tip-color td {
             padding: 5px;
         }
+
+
+
+
+
     </style>
 
 
@@ -208,22 +213,36 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                 width: "auto",
                 modal: true,
                 buttons: {
-                    "Διαγραφή": function () {
+                    "delbutton": {
 
-                        value = ($("#dialog-confirm").data('id'));
-                        $.ajax({
-                            url: "delete_student_db.php",
-                            method: "POST",
-                            data: {
-                                id: value
-                            },
-                            cache: false,
-                            success: function (result) {
-                                table.ajax.reload();
-                            }
-                        });
-                        $(this).dialog("close");
-                    },
+                        id:'delbutton',
+                        text :'Διαγραφή',
+
+                      click:  function () {
+
+                            value = ($("#dialog-confirm").data('id'));
+
+                            $.ajax({
+                                url: "delete_student_db.php",
+                                method: "POST",
+                                data: {
+                                    id: value
+                                },
+                                cache: false,
+                                beforeSend: function () {
+                                    // setting a timeout
+                                   $('#delbutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
+
+
+                                },
+                                success: function (result) {
+                                    table.ajax.reload();
+                                    $('#delbutton').html('Διαγραφή');
+
+                                }
+                            });
+                          $(this).dialog("close");
+                        } },
                     Cancel: function () {
                         $(this).dialog("close");
                     }
@@ -249,22 +268,34 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                     $("#LevelName").val(rowPassed[9]);
                 },
                 buttons: {
-                    "Ενημέρωση": function () {
-                        if ($('#modalformedit').valid()) {
-                            $.ajax({
 
-                                url: "update_student_db.php",
-                                method: "POST",
-                                data: $('#modalformedit').serialize(),
-                                context: this,
-                                cache: false,
-                                success: function (result) {
-                                    table.ajax.reload();
-                                    $(this).dialog("close");
-                                }
-                            });
-                        }
-                    },
+                    "updbutton": {
+
+                        id:'updbutton',
+                        text :'Ενημέρωση',
+
+                        click:  function () {
+                            if ($('#modalformedit').valid()) {
+                                $.ajax({
+
+                                    url: "update_student_db.php",
+                                    method: "POST",
+                                    data: $('#modalformedit').serialize(),
+                                    context: this,
+                                    cache: false,
+                                    beforeSend: function () {
+                                        // setting a timeout
+                                        $('#updbutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
+
+                                    },
+                                    success: function (result) {
+                                        table.ajax.reload();
+                                        $('#updbutton').html('Ενημέρωση');
+                                        $(this).dialog("close");
+                                    }
+                                });
+                            }
+                        }},
                     Ακύρωση: function () {
                         $(this).dialog("close");
                     }
@@ -279,13 +310,18 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                 width: "auto",
                 modal: true,
                 dialogClass: 'myClass',
-                title: 'Προσθήκη Εγγραφής...',
+                title: 'Προσθήκη Εγγραφής',
                 close: function (event, ui) {
                     $("#modalformadd").trigger('reset');
                     validator.resetForm();
                 },
                 buttons: {
-                    "Αποθήκευση": function () {
+                "savebutton": {
+
+                    id:'savebutton',
+                        text :'Αποθήκευση',
+
+                        click:  function () {
                         if ($('#modalformadd').valid()) {
                             $.ajax({
 
@@ -294,10 +330,17 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                                 data: $('#modalformadd').serialize(),
                                 context: this, //most important
                                 cache: false,
+                                beforeSend: function () {
+                                    // setting a timeout
+                                    $('#savebutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
+
+                                },
+
                                 success: function (result) {
 
                                     $("#modalformadd").trigger('reset');
                                     table.ajax.reload();
+                                    $('#savebutton').html('Αποθήκευση');
                                     $(this).dialog("close");
 
                                 }
@@ -305,7 +348,7 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                         }
 
 
-                    },
+                    }},
                     Ακύρωση: function () {
                         $(this).dialog("close");
                         $("#modalformadd").trigger('reset');

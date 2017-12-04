@@ -174,7 +174,7 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 					'select': {
 						'rows': "%d επιλεγμένες στύλες"
 					}
-				},
+				}
 				
 			} );
 
@@ -208,6 +208,9 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 				buttons: {
 					"Διαγραφή": function () {
 						value = ( $( "#dialog-confirm" ).data( 'id' ) );
+
+
+						
 						$.ajax( {
 							url: "delete_teacher_db.php",
 							method: "POST",

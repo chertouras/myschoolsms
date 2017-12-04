@@ -75,12 +75,12 @@ if (mysqli_connect_errno()) {
 }
 
 
-    $sql= 'SELECT max(RegistrationNumber) as max from persons_db.students'; 
+    $sql= "SELECT max(RegistrationNumber) as max from $dbname.students";
     $row = $mysqli->query($sql)->fetch_array();
     $RegistrationNumber = intval($row['max'])+1 ;
     
 
-    $sql= 'SELECT max(StudentId) as max from persons_db.students'; 
+    $sql= "SELECT max(StudentId) as max from $dbname.students";
     $row = $mysqli->query($sql)->fetch_array();
     $StudentId =intval( $row['max'])+1;
  
