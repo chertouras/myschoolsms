@@ -171,9 +171,8 @@ include 'navigation.php';
 </div>
 
 <div class="container">
-    <h3 class="text-center bg-info">Εισαγωγή αρχείου CSV myschool</h3><a href="#" data-toggle="modal"
-                                                                         data-target="#helpimport" id="instructions">Οδηγίες</a>
-
+    <h3 class="text-center bg-info">Εισαγωγή αρχείου CSV myschool</h3>
+    <a href="#" data-toggle="modal" data-target="#helpimport" id="instructions">Οδηγίες</a>
 </div>
 <br><br>
 
@@ -239,7 +238,7 @@ include 'navigation.php';
                         <br>Παρατηρήσεις: 1) Εάν οι πίνακες ήδη υπάρχουν δεν θα αλλοιωθούν 2) Η παράμετρος ΑΦΜ αποτελεί
                         μοναδικό χαρακτηριστικό και είναι απαραίτητη η ύπαρξή του.
                 </div>
-                
+
                 <p style="font-size:13px;">
                     <b>Επιλογή Διαγραφή του πίνακα teachers:</b><br>ΠΡΟΣΟΧΗ: Με το πάτημα του κουμπιού και αφού
                     ζητηθεί επιβεβαίωση θα ΔΙΑΓΡΑΦΕΙ ο πίνακας των εκπαιδευτικών. Δεν υπάρχει τρόπος
