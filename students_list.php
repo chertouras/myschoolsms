@@ -1,99 +1,118 @@
-<?php 
-session_start(); 
-$now=time(); 
-if (isset($_SESSION[ 'discard_after']) && $now> $_SESSION['discard_after']) 
-{ session_unset(); 
-	session_destroy(); 
-} 
-if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
-	 header('Location: index.php'); exit(); 
-	 } 
+<?php
+session_start();
+$now = time();
+if (isset($_SESSION['discard_after']) && $now > $_SESSION['discard_after']) {
+    session_unset();
+    session_destroy();
+}
+if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] != 1) {
+    header('Location: index.php');
+    exit();
+}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.0/js/responsive.bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/fixedheader/3.1.3/js/dataTables.fixedHeader.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.2.0/js/dataTables.responsive.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.datatables.net/responsive/2.2.0/js/responsive.bootstrap.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.1/jquery.dataTables.yadcf.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.1/jquery.dataTables.yadcf.min.js"></script>
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/basic/jquery.qtip.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.bootstrap.min.css" />
-    <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
-    <link type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.1/jquery.dataTables.yadcf.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/fixedheader/3.1.3/css/fixedHeader.bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.0/css/responsive.bootstrap.min.css"/>
+    <link type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet"/>
+    <link type="text/css" href=" https://cdnjs.cloudflare.com/ajax/libs/yadcf/0.9.1/jquery.dataTables.yadcf.css"
+          rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.2/css/buttons.dataTables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
 
 
     <style type="text/css">
-       
-       td.classqtip {
-    background-color: whitesmoke !important;
-    font-weight: bold; text-align: center;
+
+        td.classqtip {
+            background-color: whitesmoke !important;
+            font-weight: bold;
+            text-align: center;
         }
+
         form {
             display: table;
         }
+
         p {
             display: table-row;
         }
+
         label {
             display: table-cell;
         }
+
         input {
             display: table-cell;
         }
+
         label.error {
             float: none;
             color: red;
             font-size: 75%;
             display: block;
         }
+
         .myClass.ui-dialog input {
             font-size: .8em;
             margin: 3px;
         }
+
         .yadcf-filter {
             width: 70px;
         }
+
         tfoot input {
             width: 70%;
             padding: 3px;
             box-sizing: border-box;
         }
+
         th.dt-center,
         td.dt-center {
             text-align: center;
         }
+
         .ui-tooltip,
         .qtip {
             max-width: 370px !important;
         }
+
         .new-tip-color td {
             padding: 5px;
         }
-
-
-
 
 
     </style>
@@ -104,15 +123,15 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 
             var table = $('#students').DataTable({
                 dom: 'Bfrtip',
-				buttons: ['print' ,
-					{
-						extend: 'pdfHtml5',
-						orientation: 'landscape',
-						pageSize: 'A4', 
-				   		title:'Λίστα Μαθητών'					
+                buttons: ['print',
+                    {
+                        extend: 'pdfHtml5',
+                        orientation: 'landscape',
+                        pageSize: 'A4',
+                        title: 'Λίστα Μαθητών'
                     }
-				],
-               
+                ],
+
                 "processing": true,
                 "serverSide": true,
                 "order": [
@@ -124,12 +143,13 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 
                 "columnDefs": [
 
-                    { "className": "classqtip", "targets": [0,1,2,3,4 ] 
+                    {
+                        "className": "classqtip", "targets": [0, 1, 2, 3, 4]
                     },
                     {
                         "className": "dt-center",
                         "targets": "_all"
-                    }, 
+                    },
                     {
                         "targets": [0, 1],
                         "searchable": false,
@@ -179,8 +199,8 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 
             });
             yadcf.init(table, [{
-                    column_number: 0
-                },
+                column_number: 0
+            },
 
                 {
                     column_number: 3,
@@ -215,10 +235,10 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                 buttons: {
                     "delbutton": {
 
-                        id:'delbutton',
-                        text :'Διαγραφή',
+                        id: 'delbutton',
+                        text: 'Διαγραφή',
 
-                      click:  function () {
+                        click: function () {
 
                             value = ($("#dialog-confirm").data('id'));
 
@@ -231,7 +251,7 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                                 cache: false,
                                 beforeSend: function () {
                                     // setting a timeout
-                                   $('#delbutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
+                                    $('#delbutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
 
 
                                 },
@@ -241,8 +261,9 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 
                                 }
                             });
-                          $(this).dialog("close");
-                        } },
+                            $(this).dialog("close");
+                        }
+                    },
                     Cancel: function () {
                         $(this).dialog("close");
                     }
@@ -271,10 +292,10 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 
                     "updbutton": {
 
-                        id:'updbutton',
-                        text :'Ενημέρωση',
+                        id: 'updbutton',
+                        text: 'Ενημέρωση',
 
-                        click:  function () {
+                        click: function () {
                             if ($('#modalformedit').valid()) {
                                 $.ajax({
 
@@ -295,7 +316,8 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                                     }
                                 });
                             }
-                        }},
+                        }
+                    },
                     Ακύρωση: function () {
                         $(this).dialog("close");
                     }
@@ -316,39 +338,40 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                     validator.resetForm();
                 },
                 buttons: {
-                "savebutton": {
+                    "savebutton": {
 
-                    id:'savebutton',
-                        text :'Αποθήκευση',
+                        id: 'savebutton',
+                        text: 'Αποθήκευση',
 
-                        click:  function () {
-                        if ($('#modalformadd').valid()) {
-                            $.ajax({
+                        click: function () {
+                            if ($('#modalformadd').valid()) {
+                                $.ajax({
 
-                                url: "insert_student_db.php",
-                                method: "POST",
-                                data: $('#modalformadd').serialize(),
-                                context: this, //most important
-                                cache: false,
-                                beforeSend: function () {
-                                    // setting a timeout
-                                    $('#savebutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
+                                    url: "insert_student_db.php",
+                                    method: "POST",
+                                    data: $('#modalformadd').serialize(),
+                                    context: this, //most important
+                                    cache: false,
+                                    beforeSend: function () {
+                                        // setting a timeout
+                                        $('#savebutton').html('<img src="loader.gif" alt="Παρακαλώ Περιμένετε..." /> Παρακαλώ περιμένετε...');
 
-                                },
+                                    },
 
-                                success: function (result) {
+                                    success: function (result) {
 
-                                    $("#modalformadd").trigger('reset');
-                                    table.ajax.reload();
-                                    $('#savebutton').html('Αποθήκευση');
-                                    $(this).dialog("close");
+                                        $("#modalformadd").trigger('reset');
+                                        table.ajax.reload();
+                                        $('#savebutton').html('Αποθήκευση');
+                                        $(this).dialog("close");
 
-                                }
-                            })
+                                    }
+                                })
+                            }
+
+
                         }
-
-
-                    }},
+                    },
                     Ακύρωση: function () {
                         $(this).dialog("close");
                         $("#modalformadd").trigger('reset');
@@ -372,14 +395,13 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
             });
 
 
-
             $('#students').on('mouseenter', 'tbody tr ', function (event) {
 
                 var data = table.row((this)).data();
                 var $id_row = data[2];
                 var $surname = data[3];
                 var $name = data[4];
-                
+
                 $(this).find('.classqtip').qtip({
                     overwrite: false,
                     style: 'new-tip-color',
@@ -414,7 +436,7 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                     },
                     show: {
                         event: event.type,
-                        ready: true,solo: true
+                        ready: true, solo: true
                     },
                     hide: {
                         fixed: true
@@ -422,8 +444,6 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
                 }, event);
 
             });
-
-
 
 
             $('#students').on('click', '.edit', function (e) {
@@ -576,7 +596,6 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
             });
 
 
-
             $('#add_student').click(function () {
                 $('#dialog-add').dialog('open');
                 return false;
@@ -607,161 +626,168 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 <body>
 
 
-    <?php include 'navigation.php'; ?>
+<?php include 'navigation.php'; ?>
 
-    <h3>
-    Διαχείριση εγγραφών μαθητών 
-    </h3>
+<h3>
+    Διαχείριση εγγραφών μαθητών
+</h3>
 
-    <br>
-    <span style='background-color:yellow'><em>Οδηγίες:</em></span>
-    <strong> Με την χρήση των κουμπιών <span class='glyphicon glyphicon-edit'></span> και <span class='glyphicon glyphicon-trash'></span>
- μπορείτε να Επεξεργαστείτε ή να Διαγράψετε εγγραφές.</strong><br>
- <strong>Στις πρώτες 3 στήλες με το πέρασμα του ποντικιού απο πάνω τους εμφανίζεται tooltip με πληροφορίες σχετικές με τα sms του μαθητή
- </strong>
-    <br>
-    <br>
+<br>
+<span style='background-color:yellow'><em>Οδηγίες:</em></span>
+<strong> Με την χρήση των κουμπιών <span class='glyphicon glyphicon-edit'></span> και <span
+            class='glyphicon glyphicon-trash'></span>
+    μπορείτε να Επεξεργαστείτε ή να Διαγράψετε εγγραφές.</strong><br>
+<strong>Στις πρώτες 3 στήλες με το πέρασμα του ποντικιού απο πάνω τους εμφανίζεται tooltip με πληροφορίες σχετικές με τα
+    sms του μαθητή
+</strong>
+<br>
+<br>
 
-    <table id='students' class="table table-striped table-bordered" width="100%" cellspacing='0'>
-        <thead>
-            <tr>
-                <th>id</th>
-                <th>StudentId</th>
-                <th>ΑΜ </th>
-                <th>Επίθετο</th>
-                <th>Όνομα</th>
-                <th>Πατρώνυμο</th>
-                <th>Μητρώνυμο</th>
-                <th>Ημ. Γέννησης</th>
-                <th>Τηλέφωνο</th>
-                <th>Τάξη</th>
-                <th data-b-sortable="false"></th>
-                <th data-b-sortable="false"></th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>id</th>
-                <th>StudentId</th>
-                <th>ΑΜ </th>
-                <th></th>
-                <th>Όνομα</th>
-                <th>Πατρώνυμο</th>
-                <th>Μητρώνυμο</th>
-                <th></th>
-                <th></th>
-                <th></th>
+<table id='students' class="table table-striped table-bordered" width="100%" cellspacing='0'>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>StudentId</th>
+        <th>ΑΜ</th>
+        <th>Επίθετο</th>
+        <th>Όνομα</th>
+        <th>Πατρώνυμο</th>
+        <th>Μητρώνυμο</th>
+        <th>Ημ. Γέννησης</th>
+        <th>Τηλέφωνο</th>
+        <th>Τάξη</th>
+        <th data-b-sortable="false"></th>
+        <th data-b-sortable="false"></th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>id</th>
+        <th>StudentId</th>
+        <th>ΑΜ</th>
+        <th></th>
+        <th>Όνομα</th>
+        <th>Πατρώνυμο</th>
+        <th>Μητρώνυμο</th>
+        <th></th>
+        <th></th>
+        <th></th>
 
-                <th data-b-sortable="false"></th>
-                <th data-b-sortable="false"></th>
-            </tr>
-        </tfoot>
+        <th data-b-sortable="false"></th>
+        <th data-b-sortable="false"></th>
+    </tr>
+    </tfoot>
 
 
-    </table>
+</table>
 
-    <div id="dialog-confirm" title="Επιβεβαίωση Διαγραφής?" style="display: none;">
+<div id="dialog-confirm" title="Επιβεβαίωση Διαγραφής?" style="display: none;">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span> Είστε σίγουρος για την
+        διαγραφή του μαθητή
+        <span id="tableVal"></span>
+    </p>
+</div>
+
+<div id="dialog-edit" title="Ενημέρωση στοιχείων μαθητή" style="display: none;">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+    </p>
+
+    <form id="modalformedit" action="#">
+
         <p>
-            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span> Είστε σίγουρος για την διαγραφή του μαθητή
-            <span id="tableVal"></span>
-        </p>
-    </div>
-
-    <div id="dialog-edit" title="Ενημέρωση στοιχείων μαθητή" style="display: none;">
-        <p>
-            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
-        </p>
-
-        <form id="modalformedit" action="#">
-
-            <p>
-                <label for="RegistrationNumber">Αριθμός Μητρώου: </label>
-                <input type="text" name="RegistrationNumber" id="RegistrationNumber" readonly="readonly" style="background-color:cyan" />
-            </p>
-
-            <p>
-                <label for="LastName">Επίθετο: </label>
-                <input type="text" name="LastName" id="LastName" size="35" />
-            </p>
-            <p>
-                <label for="FirstName">Όνομα: </label>
-                <input type="text" name="FirstName" id="FirstName" size="35" />
-            </p>
-            <p>
-                <label for="FatherFirstName">Πατρώνυμο: </label>
-                <input type="text" name="FatherFirstName" id="FatherFirstName" size="35" />
-            </p>
-            <p>
-                <label for="MotherFirstName">Μητρώνυμο: </label>
-                <input type="text" name="MotherFirstName" id="MotherFirstName" size="35" />
-            </p>
-
-            <p>
-                <label for="BirthDate">Ημ. Γέννησης: </label>
-                <input type="text" name="BirthDate" id="BirthDate" />
-            </p>
-            <p>
-                <label for="Telephone1">Τηλέφωνο: </label>
-                <input type="text" pattern="\d*" name="Telephone1" id="Telephone1" size="35" />
-            </p>
-            <p>
-                <label for="LevelName">Τάξη: </label>
-                <input type="text" name="LevelName" id="LevelName" size="5" />
-            </p>
-
-        </form>
-
-
-    </div>
-
-  
-    <button type="button" class="btn btn-success" id='add_student'><span class='glyphicon glyphicon-plus'>&nbsp;</span>Προσθήκη εγγραφής</button>
-   
-    <div id="dialog-add" title="Προσθήκη στοιχείων μαθητή" style="display: none;">
-        <p>
-            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+            <label for="RegistrationNumber">Αριθμός Μητρώου: </label>
+            <input type="text" name="RegistrationNumber" id="RegistrationNumber" readonly="readonly"
+                   style="background-color:cyan"/>
         </p>
 
-        <form id="modalformadd">
+        <p>
+            <label for="LastName">Επίθετο: </label>
+            <input type="text" name="LastName" id="LastName" size="35"/>
+        </p>
+        <p>
+            <label for="FirstName">Όνομα: </label>
+            <input type="text" name="FirstName" id="FirstName" size="35"/>
+        </p>
+        <p>
+            <label for="FatherFirstName">Πατρώνυμο: </label>
+            <input type="text" name="FatherFirstName" id="FatherFirstName" size="35"/>
+        </p>
+        <p>
+            <label for="MotherFirstName">Μητρώνυμο: </label>
+            <input type="text" name="MotherFirstName" id="MotherFirstName" size="35"/>
+        </p>
 
-            <p>
-                <label for="RegistrationNumberadd">Αριθμός Μητρώου: </label>
-                <input type="text" name="RegistrationNumber" id="RegistrationNumberadd" readonly="readonly" style="background-color:#FF4800" value="Θα δοθεί αυτόματα" /> </p>
+        <p>
+            <label for="BirthDate">Ημ. Γέννησης: </label>
+            <input type="text" name="BirthDate" id="BirthDate"/>
+        </p>
+        <p>
+            <label for="Telephone1">Τηλέφωνο: </label>
+            <input type="text" pattern="\d*" name="Telephone1" id="Telephone1" size="35"/>
+        </p>
+        <p>
+            <label for="LevelName">Τάξη: </label>
+            <input type="text" name="LevelName" id="LevelName" size="5"/>
+        </p>
 
-            <p>
-                <label for="LastNameadd">Επίθετο: </label>
-                <input type="text" name="LastName" id="LastNameadd" size="35" />
-            </p>
-            <p>
-                <label for="FirstNameadd">Όνομα : </label>
-                <input type="text" name="FirstName" id="FirstNameadd" size="35" />
-            </p>
-            <p>
-                <label for="FatherFirstNameadd">Πατρώνυμο: </label>
-                <input type="text" name="FatherFirstName" id="FatherFirstNameadd" size="35" />
-            </p>
-            <p>
-                <label for="MotherFirstNameadd">Μητρώνυμο: </label>
-                <input type="text" name="MotherFirstName" id="MotherFirstNameadd" size="35" />
-            </p>
-
-            <p>
-                <label for="BirthDateadd">Ημ. Γέννησης: </label>
-                <input type="text" name="BirthDate" id="BirthDateadd" />
-            </p>
-            <p>
-                <label for="Telephone1add">Τηλέφωνο: </label>
-                <input type="text" pattern="\d*" name="Telephone1" id="Telephone1add" size="35" />
-            </p>
-            <p>
-                <label for="LevelNameadd">Τάξη: </label>
-                <input type="text" name="LevelName" id="LevelNameadd" size="5" />
-            </p>
-
-        </form>
+    </form>
 
 
-    </div>
+</div>
+
+
+<button type="button" class="btn btn-success" id='add_student'><span class='glyphicon glyphicon-plus'>&nbsp;</span>Προσθήκη
+    εγγραφής
+</button>
+
+<div id="dialog-add" title="Προσθήκη στοιχείων μαθητή" style="display: none;">
+    <p>
+        <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+    </p>
+
+    <form id="modalformadd">
+
+        <p>
+            <label for="RegistrationNumberadd">Αριθμός Μητρώου: </label>
+            <input type="text" name="RegistrationNumber" id="RegistrationNumberadd" readonly="readonly"
+                   style="background-color:#FF4800" value="Θα δοθεί αυτόματα"/></p>
+
+        <p>
+            <label for="LastNameadd">Επίθετο: </label>
+            <input type="text" name="LastName" id="LastNameadd" size="35"/>
+        </p>
+        <p>
+            <label for="FirstNameadd">Όνομα : </label>
+            <input type="text" name="FirstName" id="FirstNameadd" size="35"/>
+        </p>
+        <p>
+            <label for="FatherFirstNameadd">Πατρώνυμο: </label>
+            <input type="text" name="FatherFirstName" id="FatherFirstNameadd" size="35"/>
+        </p>
+        <p>
+            <label for="MotherFirstNameadd">Μητρώνυμο: </label>
+            <input type="text" name="MotherFirstName" id="MotherFirstNameadd" size="35"/>
+        </p>
+
+        <p>
+            <label for="BirthDateadd">Ημ. Γέννησης: </label>
+            <input type="text" name="BirthDate" id="BirthDateadd"/>
+        </p>
+        <p>
+            <label for="Telephone1add">Τηλέφωνο: </label>
+            <input type="text" pattern="\d*" name="Telephone1" id="Telephone1add" size="35"/>
+        </p>
+        <p>
+            <label for="LevelNameadd">Τάξη: </label>
+            <input type="text" name="LevelName" id="LevelNameadd" size="5"/>
+        </p>
+
+    </form>
+
+
+</div>
 </body>
 
 </html>
