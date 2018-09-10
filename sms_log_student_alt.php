@@ -250,7 +250,7 @@ include 'navigation.php';
         <tr>
           <th>
           </th>
-          <th>ΑΦΜ
+          <th>ΑΜ
           </th>
           <th>Επίθετο
           </th>
