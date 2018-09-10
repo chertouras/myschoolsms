@@ -36,8 +36,8 @@ if ($result = $mysqli->query("SHOW TABLES LIKE '".$table."'")) {
 
 $sql = "CREATE TABLE IF NOT EXISTS students (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-StudentId VARCHAR(10) NOT NULL UNIQUE,
-RegistrationNumber VARCHAR(10)  NOT NULL,
+StudentId INT(10) NOT NULL UNIQUE,
+RegistrationNumber INT(10)  NOT NULL,
 FirstName  VARCHAR(70) ,
 LastName VARCHAR(70) ,
 MotherFirstName VARCHAR(70),
