@@ -8,6 +8,6 @@ if(!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn']!=1){
 $servername="yourservername";
 $username="xxx"; // mysql username
 $password="xxxxx"; //mysql password
-$dbname='persons_db';
+$dbname="persons_db";
 
 ?>

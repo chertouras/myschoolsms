@@ -42,7 +42,7 @@ if (mysqli_connect_errno()) {
 if (!$mysqli->select_db($dbname))
 
 {
-$sql = 'CREATE DATABASE'.$dbname.'CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci';
+$sql = "CREATE DATABASE $dbname CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci";
 $result = $mysqli->query($sql);
  if ($result)  {
     echo "H βάση δεδομένων $dbname δημιουργήθηκε επιτυχώς\n";
